@@ -25,3 +25,13 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def liked_by(self, user):
+        if isinstance(user, User):
+            return user.like_set.filter(item=self).count() > 0
+        else:
+            return False
+    
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)

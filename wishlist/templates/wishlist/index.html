@@ -6,10 +6,10 @@
 
 {% block content %}
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">My items</h2>
+        <h2 class="mb-12 text-2xl text-center"><strong>Wishlisted items</strong></h2>
     
         <div class="grid grid-cols-3 gap-3">
-            {% for item in items %}
+            {% for item in liked_posts %}
                 <div class="hover:scale-105 ease-in-out duration-300">
                     <a href="{% url 'item:detail' item.id %}">
                         <div>

@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render,get_object_or_404, redirect
-
-from .models import Item, Category
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import Item, Category, Like
 from .forms import NewItemForm, EditItemForm
 
 # Create your views here.
@@ -31,10 +32,12 @@ def items(request):
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
+    liked = item.liked_by(request.user)
 
     context = {
         'item': item,
         'related_items': related_items,
+        'liked': liked,
     }
     return render(request, 'item/detail.html', context)
 
@@ -84,3 +87,18 @@ def delete(request, pk):
     item.delete()
 
     return redirect('dashboard:index')
+
+@login_required
+def toggle_like(request, pk):
+    item=get_object_or_404(Item, pk=pk)
+    if request.method=='POST' and request.user.is_authenticated:
+        like=request.user.like_set.filter(item=item).first()
+        if like:
+            like.delete()
+        else:
+            like=Like(user=request.user, item=item)
+            like.save()
+
+    return HttpResponseRedirect(
+        reverse('item:detail', args=(pk,))
+    )

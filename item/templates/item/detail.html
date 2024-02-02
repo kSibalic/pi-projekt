@@ -21,20 +21,29 @@
         {% endif %}
         
         {% if request.user == item.created_by %}
-            <div class="mt-6 p-6 bg-white rounded-xl">
-                <p>This is your item!</p>
+        <br>
+                <p>Manage your item:</p>
 
                 <a href="{% url 'item:edit' item.id %}" id="inb" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Edit</a>
-                <a href="{% url 'item:delete' item.id %}" id="clear" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Delete</a>
-            </div>
+                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Delete</a>
         {% elif request.user.is_superuser %}
-            <div class="mt-6 p-6 bg-white rounded-xl">
+        <br>
                 <p>This item is posted by <strong>{{ item.created_by.username }}</strong></p>
 
-                <a href="{% url 'item:delete' item.id %}" id="clear" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Delete</a>
+                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Delete</a>
             </div>
         {% else %}
             <a href="{% url 'conversation:new' item.id %}" id="inb" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Contact seller</a>
+            
+            <form action="{% url 'item:toggle_like' item.id%}" method="post" id="inb" class="inline-block text-lg font-semibold text-white rounded-xl">
+                {% if liked %}
+                    <input class="px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700" type="submit" value="Remove from wishlist">
+                {% else %}
+                    <input id="inb" class="px-6 py-3 text-lg font-semibold text-white rounded-xl" type="submit" value="Add to wishlist">
+                {% endif %}
+                {% csrf_token %}
+            </form>
+            
         {% endif %}
     </div>
 </div>

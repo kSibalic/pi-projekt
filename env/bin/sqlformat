@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/karlosibalic/Downloads/pi projekt/piprojekt/env/bin/python3.12" "$0" "$@"
+'''exec' "/Users/karlosibalic/Downloads/pi projekt/piprojekt/pi-projekt/env/bin/python3.12" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

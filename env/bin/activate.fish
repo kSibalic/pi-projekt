@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/karlosibalic/Downloads/pi projekt/piprojekt/env"
+set -gx VIRTUAL_ENV "/Users/karlosibalic/Downloads/pi projekt/piprojekt/pi-projekt/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
