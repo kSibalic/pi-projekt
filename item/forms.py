@@ -4,22 +4,22 @@ from .models import Item
 class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('category', 'name', 'description', 'price', 'image',)
+        fields = ('kategorija', 'naziv', 'opis', 'cijena', 'slika',)
         widgets = {
-            'category': forms.Select(attrs={
+            'kategorija': forms.Select(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
             }),
-            'name': forms.TextInput(attrs={
+            'naziv': forms.TextInput(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
             }),
-            'description': forms.Textarea(attrs={
+            'opis': forms.Textarea(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
             }),
-            'price': forms.TextInput(attrs={
+            'cijena': forms.TextInput(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border',
-                'placeholder': 'In EUR'
+                'placeholder': 'U EUR'
             }),
-            'image': forms.FileInput(attrs={
+            'slika': forms.FileInput(attrs={
                 'class': 'w-full py-4 px-4 rounded-xl border'
             })
         }
@@ -27,18 +27,18 @@ class NewItemForm(forms.ModelForm):
 class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('name', 'description', 'price', 'image', 'is_sold')
+        fields = ('naziv', 'opis', 'cijena', 'slika', 'dostupno')
         widgets = {
-            'name': forms.TextInput(attrs={
+            'naziv': forms.TextInput(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
             }),
-            'description': forms.Textarea(attrs={
+            'opis': forms.Textarea(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
             }),
-            'price': forms.TextInput(attrs={
+            'cijena': forms.TextInput(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
             }),
-            'image': forms.FileInput(attrs={
+            'slika': forms.FileInput(attrs={
                 'class': 'w-full py-4 px-4 rounded-xl border'
             })
         }

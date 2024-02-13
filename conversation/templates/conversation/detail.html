@@ -1,9 +1,9 @@
 {% extends 'home/base.html' %}
 
-{% block title %}Messanger{% endblock %}
+{% block title %}Razgovor{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl"><b>Messenger</b></h1>
+<h1 class="mb-6 text-3xl"><b>Razgovor</b></h1>
 
 <div class="space-y-6">
     {% for message in conversation.messages.all %}
@@ -21,6 +21,6 @@
 
     {{ form.as_p }}
 
-    <button id="inb" class="py-4 px-8 text-lg rounded-xl text-white">Send</button>
+    <button id="inb" class="py-4 px-8 text-lg rounded-xl text-white">Šalji</button>
 </form>
 {% endblock %}

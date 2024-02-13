@@ -1,13 +1,13 @@
 {% extends 'home/base.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Upravljačka ploča{% endblock %}
 
 {% block content %}
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
         {% if request.user.is_authenticated and request.user.is_superuser %}
-            <h2 class="mb-12 text-2xl text-center"><b>All listings</b></h2>
+            <h2 class="mb-12 text-2xl text-center"><b>Svi proizvodi</b></h2>
         {% else %}
-            <h2 class="mb-12 text-2xl text-center"><b>Your listings</b></h2>
+            <h2 class="mb-12 text-2xl text-center"><b>Vaši proizvodi</b></h2>
         {% endif %}
         <div class="grid grid-cols-3 gap-3">
             {% if request.user.is_authenticated and request.user.is_superuser %}
@@ -19,9 +19,9 @@
                             </div>
 
                             <div class="p-6 bg-white rounded-b-xl">
-                                <h2 class="text-2xl">{{ item.name }}</h2>
-                                <p class="text-gray-500">Listed price: {{ item.price }}</p>
-                                <p class="text-gray-200">VAT incl.</p>
+                                <h2 class="text-2xl">{{ item.naziv }}</h2>
+                                <p class="text-gray-500">Cijena: {{ item.cijena }}</p>
+                                <p class="text-gray-200">PDV uklj.</p>
                             </div>
                         </a>
                     </div>
@@ -31,12 +31,12 @@
                     <div class="hover:scale-105 ease-in-out duration-300">
                         <a href="{% url 'item:detail' item.id %}">
                             <div>
-                                <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                <img src="{{ item.slika.url }}" class="rounded-t-xl">
                             </div>
 
                             <div class="p-6 bg-white rounded-b-xl">
-                                <h2 class="text-2xl">{{ item.name }}</h2>
-                                <p class="text-gray-500">Listed price: {{ item.price }}</p>
+                                <h2 class="text-2xl">{{ item.naziv }}</h2>
+                                <p class="text-gray-500">Cijena: {{ item.cijena }}</p>
                                 <p class="text-gray-200">VAT incl.</p>
                             </div>
                         </a>
