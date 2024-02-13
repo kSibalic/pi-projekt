@@ -1,46 +1,46 @@
 {% extends 'home/base.html' %}
 
-{% block title %}{{ item.name }}{% endblock %}
+{% block title %}{{ item.naziv }}{% endblock %}
 
 {% block content %}
 <div class="grid grid-cols-5 gap-6">
     <div class="col-span-3">
-        <img src="{{ item.image.url }}" class="rounded-xl">
+        <img src="{{ item.slika.url }}" class="rounded-xl">
     </div>
 
     <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
-        <p class="text-gray-500"><strong>Price: </strong>EUR {{ item.price }}</p>
-        <p class="text-gray-500"><strong>Seller: </strong>{{ item.created_by.username }}</p>
+        <h1 class="mb-6 text-3xl">{{ item.naziv }}</h1>
+        <p class="text-gray-500"><strong>Cijena: </strong>EUR {{ item.cijena }}</p>
+        <p class="text-gray-500"><strong>Prodavač: </strong>{{ item.created_by.username }}</p>
     
-        {% if item.description %}
+        {% if item.opis %}
             <p class="text-gray-700">
-                <strong class="text-gray-500">Description:</strong><br>
-                {{ item.description }}
+                <strong class="text-gray-500">Opis:</strong><br>
+                {{ item.opis }}
             </p>
         {% endif %}
         
         {% if request.user == item.created_by %}
         <br>
-                <p>Manage your item:</p>
+                <p>Uredite vaš proizvod:</p>
 
-                <a href="{% url 'item:edit' item.id %}" id="inb" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Edit</a>
-                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Delete</a>
+                <a href="{% url 'item:edit' item.id %}" id="inb" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Uredi</a>
+                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Ukloni</a>
         {% elif request.user.is_superuser %}
         <br>
-                <p>This item is posted by <strong>{{ item.created_by.username }}</strong></p>
+                <p>Ovaj proizvod prodaje: <strong>{{ item.created_by.username }}</strong></p>
 
-                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Delete</a>
-                <a href="{% url 'conversation:new' item.id %}" id="inb" class="inline-block mt-6 ml-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Contact seller</a>
+                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Ukloni</a>
+                <a href="{% url 'conversation:new' item.id %}" id="inb" class="inline-block mt-6 ml-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Kontaktirajte prodavača</a>
             </div>
         {% else %}
-            <a href="{% url 'conversation:new' item.id %}" id="inb" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Contact seller</a>
+            <a href="{% url 'conversation:new' item.id %}" id="inb" class="inline-block mt-6 px-6 py-3 text-lg font-semibold text-white rounded-xl">Kontaktirajte prodavača</a>
             
             <form action="{% url 'item:toggle_like' item.id%}" method="post" id="inb" class="inline-block text-lg ml-6 font-semibold text-white rounded-xl">
                 {% if liked %}
-                    <input class="px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700" type="submit" value="Remove from wishlist">
+                    <input class="px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700" type="submit" value="Ukloni iz košarice">
                 {% else %}
-                    <input id="inb" class="px-6 py-3 text-lg font-semibold text-white rounded-xl" type="submit" value="Add to wishlist">
+                    <input id="inb" class="px-6 py-3 text-lg font-semibold text-white rounded-xl" type="submit" value="Dodaj u košaricu">
                 {% endif %}
                 {% csrf_token %}
             </form>
@@ -50,7 +50,7 @@
 </div>
 
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center"><b>Related items</b></h2>
+    <h2 class="mb-12 text-2xl text-center"><b>Povezani proizvodi</b></h2>
 
     <div class="grid grid-cols-3 gap-3">
         {% for item in related_items %}
@@ -61,8 +61,8 @@
                     </div>
 
                     <div class="p-6 bg-white rounded-b-xl">
-                        <h2 class="text-2xl">{{ item.name }}</h2>
-                        <p class="text-gray-500">Price: EUR {{ item.price }}</p>
+                        <h2 class="text-2xl">{{ item.naziv }}</h2>
+                        <p class="text-gray-500">Cijena: EUR {{ item.cijena }}</p>
                     </div>
                 </a>
             </div>

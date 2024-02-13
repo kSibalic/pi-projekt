@@ -1,28 +1,34 @@
 {% extends 'home/base.html' %}
 
 {% block title%}
-    Wishlist
+    Košarica
 {% endblock %}
 
 {% block content %}
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center"><strong>Wishlisted items</strong></h2>
+        <h2 class="mb-12 text-2xl text-center"><strong>Vaša košarica</strong></h2>
     
         <div class="grid grid-cols-3 gap-3">
-            {% for item in liked_posts %}
-                <div class="hover:scale-105 ease-in-out duration-300">
-                    <a href="{% url 'item:detail' item.id %}">
-                        <div>
-                            <img src="{{ item.image.url }}" class="rounded-t-xl">
-                        </div>
+            {% if liked_posts %}
+                {% for item in liked_posts %}
+                    <div class="hover:scale-105 ease-in-out duration-300">
+                        <a href="{% url 'item:detail' item.id %}">
+                            <div>
+                                <img src="{{ item.slika.url }}" class="rounded-t-xl">
+                            </div>
 
-                        <div class="p-6 bg-white rounded-b-xl">
-                            <h2 class="text-2xl">{{ item.name }}</h2>
-                            <p class="text-gray-500">Price: {{ item.price }} €</p>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+                            <div class="p-6 bg-white rounded-b-xl">
+                                <h2 class="text-2xl">{{ item.naziv }}</h2>
+                                <p class="text-gray-500">Cijena: {{ item.cijena }} €</p>
+                            </div>
+                        </a>
+                    </div>
+                {% empty %}
+                    <h1 style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center;">Vaša košarica je <a href="{% url 'item:items' %}" class="hover:text-green-700">prazna!</a></h1>
+                {% endfor %}
+            {% else %}
+                <h1 style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center;">Vaša košarica je <a href="{% url 'item:items' %}" class="hover:text-green-700">prazna!</a></h1>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

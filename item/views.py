@@ -12,7 +12,7 @@ def items(request):
     query = request.GET.get('query', '')
     categories = Category.objects.all()
     category_id = request.GET.get('category', 0)
-    items = Item.objects.filter(is_sold=False)
+    items = Item.objects.filter(dostupno=False)
 
     if category_id:
         items = items.filter(category_id=category_id)
@@ -31,7 +31,7 @@ def items(request):
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
+    related_items = Item.objects.filter(kategorija=item.kategorija, dostupno=False).exclude(pk=pk)[0:3]
     liked = item.liked_by(request.user)
 
     context = {

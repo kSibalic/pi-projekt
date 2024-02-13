@@ -1,24 +1,24 @@
 {% extends 'home/base.html' %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}Dobrodošli{% endblock %}
 
 {% block content %}
 
     {% if request.user.is_authenticated %}
-        <p><strong>Hello {{ request.user.username }}</strong><p>
+        <p><strong>Dobrodošao/la {{ request.user.username }}</strong><p>
     {% endif %}
 
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
         <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-            <h2 class="mb-12 text-2xl text-center"><b>Categories</b></h2>
+            <h2 class="mb-12 text-2xl text-center"><b>Kategorije</b></h2>
     
             <div class="grid grid-cols-3 gap-3">
                 {% for category in categories %}
                     <div>
                         <a href="{% url 'item:items' %}?category={{ category.id }}">
                             <div class="p-6 bg-white rounded-xl">
-                                <h2 class="text-2xl">{{ category.name }}</h2>
-                                <p class="text-gray-500">{{ category.items.count }} items</p>
+                                <h2 class="text-2xl">{{ category.naziv }}</h2>
+                                <p class="text-gray-500">{{ category.items.count }} proizvoda</p>
                             </div>
                         </a>
                     </div>
@@ -26,19 +26,19 @@
             </div>
         </div>
 
-        <h2 class="mb-12 text-2xl text-center"><b>Newest listings</b></h2>
+        <h2 class="mb-12 text-2xl text-center"><b>Najnovije u ponudi</b></h2>
 
         <div class="grid grid-cols-3 gap-3">
             {% for item in items %}
                 <div class="hover:scale-105 ease-in-out duration-300">
                     <a href="{% url 'item:detail' item.id %}">
                         <div>
-                            <img src="{{ item.image.url }}" class="rounded-t-xl">
+                            <img src="{{ item.slika.url }}" class="rounded-t-xl">
                         </div>
 
                         <div class="p-6 bg-white rounded-b-xl">
-                            <h2 class="text-2xl">{{ item.name }}</h2>
-                            <p class="text-gray-500">Price: EUR {{ item.price }}</p>
+                            <h2 class="text-2xl">{{ item.naziv }}</h2>
+                            <p class="text-gray-500">Cijena: EUR {{ item.cijena }}</p>
                         </div>
                     </a>
                 </div>
