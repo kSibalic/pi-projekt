@@ -1,5 +1,5 @@
 from django import forms
-from .models import Item
+from .models import Item, Category
 
 class NewItemForm(forms.ModelForm):
     class Meta:
@@ -27,7 +27,7 @@ class NewItemForm(forms.ModelForm):
 class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('naziv', 'opis', 'cijena', 'slika', 'dostupno')
+        fields = ('naziv', 'opis', 'cijena', 'slika',)
         widgets = {
             'naziv': forms.TextInput(attrs={
                 'class': 'w-full py-2 px-3 rounded-xl border'
@@ -40,5 +40,15 @@ class EditItemForm(forms.ModelForm):
             }),
             'slika': forms.FileInput(attrs={
                 'class': 'w-full py-4 px-4 rounded-xl border'
+            })
+        }
+
+class NewCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('naziv',)
+        widgets = {
+            'naziv': forms.TextInput(attrs={
+                'class': 'w-full py-2 px-3 rounded-xl border'
             })
         }

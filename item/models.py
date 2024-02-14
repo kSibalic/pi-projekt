@@ -8,7 +8,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ('naziv',)
-        verbose_name_plural = 'Kategorije'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.naziv
@@ -19,7 +19,7 @@ class Item(models.Model):
     opis = models.TextField(blank=True, null=True)
     cijena = models.FloatField()
     slika = models.ImageField(upload_to='item_images', blank=True, null=True)
-    dostupno = models.BooleanField(default=False)
+    #dostupno = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
 

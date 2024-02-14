@@ -4,7 +4,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Item, Category, Like
-from .forms import NewItemForm, EditItemForm
+from .forms import NewItemForm, EditItemForm, NewCategoryForm
 
 # Create your views here.
 
@@ -12,13 +12,13 @@ def items(request):
     query = request.GET.get('query', '')
     categories = Category.objects.all()
     category_id = request.GET.get('category', 0)
-    items = Item.objects.filter(dostupno=False)
+    items = Item.objects.all()
 
     if category_id:
-        items = items.filter(category_id=category_id)
+        items = items.filter(kategorija_id=category_id)
 
     if query:
-        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        items = items.filter(Q(naziv__icontains=query) | Q(opis__icontains=query))
 
     context = {
         'items': items,
@@ -31,7 +31,7 @@ def items(request):
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    related_items = Item.objects.filter(kategorija=item.kategorija, dostupno=False).exclude(pk=pk)[0:3]
+    related_items = Item.objects.filter(kategorija=item.kategorija).exclude(pk=pk)[0:3]
     liked = item.liked_by(request.user)
 
     context = {
@@ -57,7 +57,7 @@ def new(request):
 
     context={
         'form': form,
-        'title': 'New item',
+        'title': 'Novi proizvod',
     }
     return render(request, 'item/form.html', context)
 
@@ -77,7 +77,7 @@ def edit(request, pk):
 
     context={
         'form': form,
-        'title': 'Edit item',
+        'title': 'Uredi proizvod',
     }
     return render(request, 'item/form.html', context)
 
@@ -102,3 +102,38 @@ def toggle_like(request, pk):
     return HttpResponseRedirect(
         reverse('item:detail', args=(pk,))
     )
+
+@login_required
+def categories(request):
+    categories = Category.objects.all()
+
+    return render(request, 'item/categories.html', {
+        'categories': categories,
+    })
+
+@login_required
+def new_category(request):
+    if request.method == 'POST':
+        form = NewCategoryForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.created_by = request.user
+            item.save()
+
+            return redirect('item:categories')
+    else:
+        form = NewCategoryForm()
+
+    context={
+        'form': form,
+        'title': 'Nova kategorija',
+    }
+    return render(request, 'item/form_category.html', context)
+
+@login_required
+def delete_category(request, pk):
+    item = get_object_or_404(Category, pk=pk)
+    item.delete()
+
+    return redirect('item:categories')

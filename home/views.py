@@ -6,7 +6,7 @@ from item.models import Category, Item
 from .forms import SignupForm
 
 def index(request):
-    items = Item.objects.filter(dostupno=False)[0:6]
+    items = Item.objects.all()[0:6]
     categories = Category.objects.all()
     context = {
         'categories': categories,

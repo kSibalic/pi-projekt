@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Unesite ime',
+        'placeholder': 'Unesite korisničko ime',
         'class': 'w-full py-2 px-3 rounded-xl'
     }))
 
@@ -19,7 +19,7 @@ class SignupForm(UserCreationForm):
         fields = ('username','email','password1','password2')
 
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Unesite ime',
+        'placeholder': 'Unesite korisničko ime',
         'class': 'w-full py-2 px-3 rounded-xl'
     }))
 

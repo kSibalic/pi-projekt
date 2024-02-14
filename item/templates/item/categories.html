@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Kategorije{% endblock %}
+
+{% block content %}
+
+<div class="mt-6 px-6 py-6 bg-gray-100 rounded-xl">
+    <div class="px-6 py-12 bg-gray-100 rounded-xl">
+
+        <h2 class="mb-8 text-3xl">Dodaj novu kategoriju</h2>
+        <a href="{% url 'item:new_category' %}" id="inb" class="px-6 py-3 text-lg font-semibold text-white rounded-xl">Dodaj kategoriju</a>
+        
+        <h1 class="mt-12 text-3xl text-center">Kategorije</h1>
+        <div class="grid grid-cols-3 gap-3 mt-12">
+            {% for category in categories %}
+                <div>
+                    <a href="{% url 'item:items' %}?category={{ category.id }}">
+                        <div class="p-6 bg-white rounded-xl">
+                            <h2 class="text-2xl">{{ category.naziv }}</h2>
+                            <a href="{% url 'item:delete_category' category.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Ukloni</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -24,10 +24,10 @@
                         </a>
                     </div>
                 {% empty %}
-                    <h1 style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center;">Vaša košarica je <a href="{% url 'item:items' %}" class="hover:text-green-700">prazna!</a></h1>
+                    <h1 style="position: absolute; top: 33.5%; left: 50%; transform: translate(-50%, -50%); text-align: center;">Vaša košarica je <a href="{% url 'item:items' %}" class="hover:text-green-700">prazna!</a></h1>
                 {% endfor %}
             {% else %}
-                <h1 style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center;">Vaša košarica je <a href="{% url 'item:items' %}" class="hover:text-green-700">prazna!</a></h1>
+                <h1 style="position: absolute; top: 33.5%; left: 50%; transform: translate(-50%, -50%); text-align: center;">Vaša košarica je <a href="{% url 'item:items' %}" class="hover:text-green-700">prazna!</a></h1>
             {% endif %}
         </div>
     </div>

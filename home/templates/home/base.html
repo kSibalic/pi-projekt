@@ -35,11 +35,12 @@
 
     <body>
         <nav class="py-6 px-6 flex justify-between items-center">
-            <a href="/"><img src="/media/design/vkPijaca.png" class="px-0 py-0" width="40%" height="40%"></a>
+            <a href="/"><img src="/media/design/vkPijaca.png" class="px-0 py-0" width="60%" height="60%"></a>
 
             <div class="space-x-6">
                 {% if request.user.is_authenticated and request.user.is_superuser %}
-                    <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-green-700">Pretraži</a>
+                    <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-green-700">Proizvodi</a>
+                    <a href="{% url 'item:categories' %}" class="text-lg font-semibold hover:text-green-700">Kategorije</a>
 
                     {% if request.user.is_authenticated %}
                         <a href="{% url 'dashboard:index' %}" class="text-lg font-semibold hover:text-green-700">Upravljačka ploča</a>
@@ -50,10 +51,10 @@
                         <a href="{% url 'home:login' %}" id="dash" class="px-6 py-3 text-lg font-semibold text-white rounded-xl">Prijava</a>
                     {% endif %}
                 {% else %}
-                    <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-green-700">Novi proizvod</a>
                     <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-green-700">Pretraži</a>
 
                     {% if request.user.is_authenticated %}
+                        <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-green-700">Novi proizvod</a>
                         <a href="{% url 'wishlist:index' %}" class="text-lg font-semibold hover:text-green-700">Košarica</a>
                         <a href="{% url 'conversation:inbox' %}" class="text-lg font-semibold hover:text-green-700">Sandučić</a>
                         <a href="{% url 'dashboard:index' %}" class="text-lg font-semibold hover:text-green-700">Vaši proizvodi</a>
@@ -67,7 +68,7 @@
             </div>
         </nav>
 
-        <div class="px-6 py-6">
+        <div class="px-6 pb-6">
             {% block content %}
             {% endblock %}
         </div>
